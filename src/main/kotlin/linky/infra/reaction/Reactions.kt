@@ -1,5 +1,6 @@
-package linky.infra
+package linky.infra.reaction
 
+import linky.infra.command.Command
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.ListableBeanFactory
 import org.springframework.stereotype.Component

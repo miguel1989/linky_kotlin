@@ -1,6 +1,7 @@
 package linky
 
-import linky.infra.Command
+import linky.infra.command.Command
+
 
 class CreateLink(val userId:String, val name:String, val url:String) : Command<LinkBean> {
     override fun toLogString(): String {

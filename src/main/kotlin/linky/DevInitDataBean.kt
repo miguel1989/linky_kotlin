@@ -1,6 +1,6 @@
 package linky
 
-import linky.infra.PipedNow
+import linky.infra.command.PipedNow
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.stereotype.Component
 

@@ -1,6 +1,6 @@
 package linky
 
-import linky.infra.Reaction
+import linky.infra.reaction.Reaction
 import org.springframework.stereotype.Component
 
 @Component
