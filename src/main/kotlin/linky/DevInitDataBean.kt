@@ -1,6 +1,5 @@
 package linky
 
-import linky.infra.DEV
 import linky.infra.command.PipedNow
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.context.annotation.Profile
