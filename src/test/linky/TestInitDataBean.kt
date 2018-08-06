@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
-@Profile(DEV)
-class DevInitDataBean(private val pipedNow: PipedNow) : InitializingBean {
+@Profile(TEST)
+class TestInitDataBean(private val pipedNow: PipedNow) : InitializingBean {
     override fun afterPropertiesSet() {
-        pipedNow.execute(CreateLink("user1", "gogle", "www.google.lv"))
+        pipedNow.execute(CreateLink("test", "test", "www.test.lv"))
     }
 }
