@@ -1,15 +1,9 @@
 package linky.infra.command
 
 import java.lang.reflect.Type
-import java.util.*
 
-interface Command<T : Command.R> {
-    interface R {
-        class Void : R
-        class Id(val uuid: UUID) : R
-    }
-
-    fun execute(now: Now):T {
+interface Command<R : Return> {
+    fun execute(now: Now): R {
         return now.execute(this)
     }
 
