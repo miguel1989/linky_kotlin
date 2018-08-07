@@ -2,6 +2,7 @@ package linky
 
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
+import linky.link.dto.CreateLinkBean
 import linky.link.dto.LinkBean
 import org.junit.Before
 import org.junit.Test
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
@@ -37,11 +39,23 @@ class BasicIntegrationTest {
     }
 
     @Test
-    fun something() {
-        val result = testRestTemplate.getForEntity("http://localhost:$randomServerPort/api/link/1", LinkBean::class.java)
+    fun createLink() {
+        val request: HttpEntity<CreateLinkBean> = HttpEntity(CreateLinkBean("gogle", "www.google.lv"))
+        val result = testRestTemplate.exchange(
+                "http://localhost:$randomServerPort/api/link/create",
+                HttpMethod.POST,
+                request,
+                LinkBean::class.java
+        )
         assertNotNull(result)
         assertEquals(result.statusCode, HttpStatus.OK)
-        assertEquals(result.body, LinkBean("gogle", "www.google.lv"))
+        assertNotNull(result.body.id)
+        assertEquals(result.body.name, "gogle")
+        assertEquals(result.body.url, "www.google.lv")
+//        val result = testRestTemplate.getForEntity("http://localhost:$randomServerPort/api/link/1", LinkBean::class.java)
+//        assertNotNull(result)
+//        assertEquals(result.statusCode, HttpStatus.OK)
+//        assertEquals(result.body, LinkBean("gogle", "www.google.lv"))
 //        testRestTemplate.exchange("/api/link", HttpMethod.GET, LinkBean::class)
     }
 }
