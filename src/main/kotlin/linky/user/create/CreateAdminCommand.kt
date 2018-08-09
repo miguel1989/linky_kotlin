@@ -3,12 +3,12 @@ package linky.user.create
 import linky.infra.command.Command
 import linky.user.dto.AuthenticatedUserBean
 
-class CreateUserCommand(
+class CreateAdminCommand(
         val email: String,
         val password: String,
         val name: String
 ) : Command<AuthenticatedUserBean> {
     override fun toLogString(): String {
-        return "CreateUserCommand email = $email, name = $name"
+        return "CreateAdminCommand email = $email, name = $name"
     }
 }

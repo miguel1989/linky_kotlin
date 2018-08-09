@@ -4,6 +4,8 @@ import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @SpringBootApplication
 class Application {
@@ -14,6 +16,11 @@ class Application {
 //        repository.save(Customer("Kim", "Bauer"))
 //        repository.save(Customer("David", "Palmer"))
 //        repository.save(Customer("Michelle", "Dessler"))
+    }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder {
+        return BCryptPasswordEncoder()
     }
 }
 

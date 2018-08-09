@@ -8,8 +8,11 @@ import javax.persistence.*
 @Table(name="roles")
 class Role(
         @ManyToOne(optional = false, fetch = FetchType.LAZY)
-        @JoinColumn(name = "user_id") private val user: User = User(),
-        @Column(name = "role", length = 120) private val role: String = ""
+        @JoinColumn(name = "user_id")
+        private val user: User = User(),
+
+        @Column(name = "role", length = 120)
+        private val role: String = ""
 ): BaseEntity(), GrantedAuthority {
 
     fun user(): User {

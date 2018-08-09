@@ -7,5 +7,5 @@ import java.util.*
 
 @Repository
 interface UserDao: PagingAndSortingRepository<User, UUID> {
-    fun findByEmail(email: String): User
+    fun findByEmail(email: String): User?
 }

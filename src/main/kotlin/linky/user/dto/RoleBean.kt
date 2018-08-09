@@ -1,3 +1,9 @@
 package linky.user.dto
 
-class RoleBean(val value: String)
+import org.springframework.security.core.GrantedAuthority
+
+class RoleBean(val value: String): GrantedAuthority {
+    override fun getAuthority(): String {
+        return value
+    }
+}

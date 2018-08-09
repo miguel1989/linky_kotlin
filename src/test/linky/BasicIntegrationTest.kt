@@ -22,11 +22,12 @@ class BasicIntegrationTest {
     @Autowired
     lateinit var testRestTemplate: TestRestTemplate
 
-    val TEST_USER_EMAIL: String = "user@test.lv"
-    val TEST_USER_PASS: String = "secret"
-
     @Before
     fun setup() {
         logger.info("setup on port $randomServerPort")
+    }
+
+    fun localUrl(): String {
+        return "http://localhost:$randomServerPort"
     }
 }

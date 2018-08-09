@@ -8,12 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
-class CreateUserReaction(
+class CreateAdminReaction(
         private val userDao: UserDao,
         private val passwordEncoder: PasswordEncoder
-) : Reaction<CreateUserCommand, AuthenticatedUserBean> {
-    override fun react(command: CreateUserCommand): AuthenticatedUserBean {
+) : Reaction<CreateAdminCommand, AuthenticatedUserBean> {
+    override fun react(command: CreateAdminCommand): AuthenticatedUserBean {
         val user = User(command.email, passwordEncoder.encode(command.password), command.name)
+        user.grantAdmin()
         userDao.save(user)
         return AuthenticatedUserBean(user)
     }
