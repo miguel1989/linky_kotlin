@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
 class TestInitDataBean(private val pipedNow: PipedNow) : InitializingBean {
     override fun afterPropertiesSet() {
         CreateUserCommand(TEST_USER_EMAIL, TEST_USER_PASS, "Test user").execute(pipedNow)
-        CreateAdminCommand(ADMIN_USER_EMAIL, TEST_USER_EMAIL, "Admin user").execute(pipedNow)
+        CreateAdminCommand(ADMIN_USER_EMAIL, TEST_USER_PASS, "Admin user").execute(pipedNow)
 //        pipedNow.execute(CreateLinkCommand("test", "test", "www.test.lv"))
     }
 }

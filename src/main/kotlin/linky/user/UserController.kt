@@ -1,20 +1,34 @@
 package linky.user
 
 import linky.infra.command.PipedNow
+import linky.user.domain.User
 import linky.user.dto.AuthenticatedUserBean
 import linky.user.find.FindUserCommand
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/user")
 class UserController(private val pipedNow: PipedNow) {
-    @GetMapping("/{id:.*}")
-    fun find(@PathVariable("id") id: String): AuthenticatedUserBean {
-        return FindUserCommand(id).execute(pipedNow)
+
+    @GetMapping("/me")
+    fun me(): String? {
+        val auth = SecurityContextHolder.getContext().authentication
+        if (auth?.principal != null) {
+            if (auth.principal is User) {
+                return (auth.principal as User).id()
+            }
+            return auth.principal.toString()
+        }
+        return null
     }
 
-//    @PostMapping("/create")
-//    fun create(@RequestBody bean: CreateUserBean): AuthenticatedUserBean {
-//        return pipedNow.execute(CreateUserCommand(bean.email, bean.password, bean.name))
-//    }
+    @GetMapping("/me_full")
+    fun meFull(): AuthenticatedUserBean {
+        val id = me()
+        if (id != null) {
+            return FindUserCommand(id).execute(pipedNow)
+        }
+        return AuthenticatedUserBean()
+    }
 }

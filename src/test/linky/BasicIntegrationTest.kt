@@ -1,5 +1,7 @@
 package linky
 
+import linky.api.UserAdminApi
+import linky.api.UserApi
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.slf4j.LoggerFactory
@@ -22,9 +24,17 @@ class BasicIntegrationTest {
     @Autowired
     lateinit var testRestTemplate: TestRestTemplate
 
+    @Autowired
+    lateinit var userAdminApi: UserAdminApi
+
+    @Autowired
+    lateinit var userApi: UserApi
+
     @Before
     fun setup() {
         logger.info("setup on port $randomServerPort")
+        userAdminApi.localUrl = localUrl()
+        userApi.localUrl = localUrl()
     }
 
     fun localUrl(): String {
