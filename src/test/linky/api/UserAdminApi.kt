@@ -27,4 +27,17 @@ class UserAdminApi(
                 FullUserBean::class.java
         )
     }
+
+    fun deleteUserByEmail(email: String): ResponseEntity<String> {
+        val httpHeaders = HttpHeaders()
+        httpHeaders.set(HttpHeaders.AUTHORIZATION,
+                buildBasicAuth(ADMIN_USER_EMAIL, TEST_USER_PASS))
+        val request = HttpEntity<String>(httpHeaders)
+        return testRestTemplate.exchange(
+                "$localUrl/admin/user/$email",
+                HttpMethod.DELETE,
+                request,
+                String::class.java
+        )
+    }
 }

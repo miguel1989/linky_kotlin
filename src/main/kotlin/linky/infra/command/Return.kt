@@ -3,6 +3,6 @@ package linky.infra.command
 import java.util.*
 
 interface Return {
-    class Void : Return
-    class Id(val uuid: UUID) : Return
+    open class Void : Return
+    open class Id(val uuid: UUID) : Return
 }

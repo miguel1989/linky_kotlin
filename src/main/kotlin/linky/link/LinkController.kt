@@ -4,6 +4,7 @@ import linky.infra.command.PipedNow
 import linky.link.create.CreateLinkCommand
 import linky.link.dto.CreateLinkBean
 import linky.link.dto.LinkBean
+import linky.user.dto.AuthUser
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -16,6 +17,6 @@ class LinkController(private val pipedNow: PipedNow) {
 
     @PostMapping("/create")
     fun create(@RequestBody createLinkBean: CreateLinkBean): LinkBean {
-        return pipedNow.execute(CreateLinkCommand("miguel", createLinkBean.name, createLinkBean.url))
+        return pipedNow.execute(CreateLinkCommand(AuthUser().id(), createLinkBean.name, createLinkBean.url))
     }
 }

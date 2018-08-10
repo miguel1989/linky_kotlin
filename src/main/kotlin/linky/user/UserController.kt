@@ -23,10 +23,14 @@ class UserController(private val pipedNow: PipedNow) {
         return null
     }
 
-    @GetMapping("/me_full")
+    @GetMapping("/me/full")
     fun meFull(): AuthenticatedUserBean {
-        val id = me()
-        if (id != null) {
+        val auth = SecurityContextHolder.getContext().authentication
+        if (auth?.principal != null) {
+            if (auth.principal is User) {
+                return AuthenticatedUserBean(auth.principal as User)
+            }
+            val id = auth.principal.toString()
             return FindUserCommand(id).execute(pipedNow)
         }
         return AuthenticatedUserBean()

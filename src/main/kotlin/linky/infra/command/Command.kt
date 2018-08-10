@@ -11,4 +11,8 @@ interface Command<R : Return> {
     fun type(): Type {
         return this.javaClass
     }
+
+    fun txFlags() : Collection<TxFlag> {
+        return emptyList()
+    }
 }
