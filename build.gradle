@@ -43,12 +43,39 @@ sourceSets {
     test {
         java {
             srcDirs = ['src/test/linky']
+//            exclude 'src/test/linky/**/*IT*'
+//            exclude 'src/test/linky/*IT*'
+//            exclude 'src/test/linky/BasicIntegrationTest*'
         }
         resources {
             srcDirs = ['src/test/resources']
         }
     }
+//    integrationTest {
+//        java {
+//            compileClasspath += main.output + test.output
+//            runtimeClasspath += main.output + test.output
+//            include 'src/test/linky/**/*IT*'
+//            include 'src/test/linky/BasicIntegrationTest*'
+//        }
+//        resources {
+//            srcDirs = ['src/test/resources']
+//        }
+//    }
 }
+
+//configurations {
+//    integrationTestCompile.extendsFrom testCompile
+//    integrationTestRuntime.extendsFrom testRuntime
+//}
+//
+//task integrationTest(type: Test) {
+//    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+//    classpath = sourceSets.integrationTest.runtimeClasspath
+//}
+//
+//check.dependsOn integrationTest
+//integrationTest.mustRunAfter test
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // Required for Kotlin integration

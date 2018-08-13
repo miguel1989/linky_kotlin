@@ -2,6 +2,7 @@ package linky.infra.command
 
 import linky.infra.reaction.Reaction
 import linky.infra.reaction.Reactions
+import linky.infra.validation.Validations
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.transaction.PlatformTransactionManager
@@ -11,6 +12,7 @@ import org.springframework.transaction.support.TransactionTemplate
 //val txManager: PlatformTransactionManager
 class PipedNow(
         private val reactions:Reactions,
+        private val validations:Validations,
         private val platformTransactionManager: PlatformTransactionManager
 ) : Now {
     override fun <C : Command<R>, R : Return> execute(command: C): R {
@@ -38,8 +40,8 @@ class PipedNow(
 
     inner class Reacting : Now {
         override fun <C : Command<R>, R : Return> execute(command: C): R {
-            val reaction: Reaction<C, R> = reactions.byCommand(command)
-            return reaction.react(command)
+            validations.byCommand(command)?.validate(command)
+            return reactions.byCommand(command).react(command)
         }
     }
 }

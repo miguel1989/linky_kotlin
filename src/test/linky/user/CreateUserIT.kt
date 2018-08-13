@@ -6,6 +6,9 @@ import org.junit.Test
 import org.springframework.http.*
 
 class CreateUserIT : BasicIntegrationTest() {
+//    @get:Rule
+//    var thrown = ExpectedException.none()
+
     @Test
     fun createUser_correct() {
         userAdminApi.deleteUserByEmail("aaa@aaa.lv")
@@ -33,11 +36,15 @@ class CreateUserIT : BasicIntegrationTest() {
         Assert.assertEquals(meFullResponse.body.name, "medved")
     }
 
-//    @Test
-//    fun createUser_duplicate() {
-//        userAdminApi.deleteUserByEmail("aaa@aaa.lv")
-//        val authenticatedUserBean = userApi.registerAndAssert("aaa@aaa.lv", "secret", "medved")
-//
-//        userApi.register("aaa@aaa.lv")
-//    }
+    @Test
+    fun createUser_duplicate() {
+        userAdminApi.deleteUserByEmail("aaa@aaa.lv")
+        val authenticatedUserBean = userApi.registerAndAssert("aaa@aaa.lv", "secret", "medved")
+
+//        thrown.expect(HttpClientErrorException::class.java)
+        val response = userApi.registerEx("aaa@aaa.lv")
+        Assert.assertNotNull(response)
+        Assert.assertEquals(response.statusCode, HttpStatus.BAD_REQUEST)
+        Assert.assertEquals(response.body, "email is already taken")
+    }
 }

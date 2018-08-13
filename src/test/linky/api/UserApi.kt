@@ -45,6 +45,16 @@ class UserApi(
         )
     }
 
+    fun registerEx(email: String, pass: String = "secret", name: String = "Test user"): ResponseEntity<String> {
+        val request: HttpEntity<CreateUserBean> = HttpEntity(CreateUserBean(email, pass, name))
+        return testRestTemplate.exchange(
+                "$localUrl/service/register",
+                HttpMethod.POST,
+                request,
+                String::class.java
+        )
+    }
+
     fun registerAndAssert(email: String, pass: String = "secret", name: String = "Test user"): AuthenticatedUserBean {
         val response = register(email, pass, name)
         Assert.assertNotNull(response)
